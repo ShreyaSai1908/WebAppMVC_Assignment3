@@ -39,10 +39,13 @@ namespace WebAppMVC_Assignment3.Controllers
         [HttpGet]
         public IActionResult Add_View_People()
         {
+            
             if (peopleViewModel == null)
             {
                 peopleViewModel = ps.All();
             }
+            
+            //peopleViewModel = ps.All();
             return View(peopleViewModel);
         }
 
@@ -70,6 +73,7 @@ namespace WebAppMVC_Assignment3.Controllers
                 peopleViewModel = ps.FindBy(objModel);
             }
 
+            //return View("Add_View_People", peopleViewModel);
             return RedirectToAction(nameof(Add_View_People));
         }
 
@@ -78,6 +82,7 @@ namespace WebAppMVC_Assignment3.Controllers
             ps.Remove(id);
             peopleViewModel = ps.All();
             return RedirectToAction(nameof(Add_View_People));
+            //return View("Add_View_People", peopleViewModel);
         }
         public IActionResult EditPeople(int id)
         {

@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container">
     <h1>Add People</h1>
 </div>
 
-@if (Model.ModelErr!=null)
+@if (Model.ModelErr != null)
 {
     <div class="errText">
         <p>
@@ -18,68 +18,118 @@
 }
 
 
-<div>
+<div class="container">
     <form asp-action="Add_View_People" method="post">
-        <label asp-for="AddPerson.FirstName"></label>
-        <input asp-for="AddPerson.FirstName" />
-
-        <label asp-for="AddPerson.LastName"></label>
-        <input asp-for="AddPerson.LastName" />
-
-        <label asp-for="AddPerson.PhoneNumber"></label>
-        <input asp-for="AddPerson.PhoneNumber" />
-
-        <label asp-for="AddPerson.Address"></label>
-        <input asp-for="AddPerson.Address" />
-
-        <input type="submit" value="Create Person" />
-
+        <div class="form-group">
+            <label asp-for="AddPerson.FirstName"></label>
+            <input asp-for="AddPerson.FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddPerson.LastName"></label>
+            <input asp-for="AddPerson.LastName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddPerson.PhoneNumber"></label>
+            <input asp-for="AddPerson.PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddPerson.Address"></label>
+            <input asp-for="AddPerson.Address" class="form-control" />
+        </div>
+        <input type="submit" value="Create Person" class="btn btn-outline-primary" />
     </form>
 </div>
-
-<div>
+<br />
+<div class="container">
     <h1>View People</h1>
 </div>
-
-<div class="divPadding">
-    <form asp-action="Add_View_People" method="post">
-        <input asp-for="Search" />
-
-        <input type="submit" value="Search" />
-
+<br />
+<div class="container">
+    <form asp-action="Add_View_People" method="post" class="form-inline">
+        <div class="form-group">
+            <input asp-for="Search" class="form-control" />
+            <input type="submit" value="Search" class="btn btn-outline-primary" />
+        </div>
     </form>
-
 </div>
+<br />
 
-<div class="divPadding">
-    <table>
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.AllPeople != null)
+
+@* using bootstrap "div row"
+        <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col">First Name</div>
+                <div class="col">Last Name</div>
+                <div class="col">Phone Number</div>
+                <div class="col">Address</div>
+                <div class="col"> </div>
+                <div class="col"> </div>
+            </div>
+            @foreach (Person person in Model.AllPeople)
             {
+                <partial name="_PersonPV" model="person"/>
+            }
+         </div>
+    </div>*@
+
+@*using bootstrap table*@
+@if (Model.AllPeople.Count > 0)
+{
+    <div class="container">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"> </th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
                 @foreach (Person person in Model.AllPeople)
                 {
-                    <tr>
-                        <th>@person.FirstName</th>
-                        <th>@person.LastName</th>
-                        <th>@person.PhoneNumber</th>
-                        <th>@person.Address</th>
-                        <th>
-                            <a asp-controller="People" asp-action="DeletePeople" asp-route-id=@person.PersonID class="bodyTxt">Remove</a>
-                        </th>
-                        <th>
-                            <a asp-controller="People" asp-action="EditPeople" asp-route-id=@person.PersonID class="bodyTxt">Edit</a>
-                        </th>
-                    </tr>
+                    <partial name="_PersonPV" model="person" />
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@*<div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AllPeople != null)
+                {
+                    @foreach (Person person in Model.AllPeople)
+                    {
+                        <tr>
+                            <th>@person.FirstName</th>
+                            <th>@person.LastName</th>
+                            <th>@person.PhoneNumber</th>
+                            <th>@person.Address</th>
+                            <th>
+                                <a asp-controller="People" asp-action="DeletePeople" asp-route-id=@person.PersonID class="bodyTxt">Remove</a>
+                            </th>
+                            <th>
+                                <a asp-controller="People" asp-action="EditPeople" asp-route-id=@person.PersonID class="bodyTxt">Edit</a>
+                            </th>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>*@

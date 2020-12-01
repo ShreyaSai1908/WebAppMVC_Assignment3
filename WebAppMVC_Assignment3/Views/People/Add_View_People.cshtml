@@ -1,0 +1,85 @@
+﻿@model PeopleViewModel
+@{
+    ViewData["Title"] = "Add People";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>Add People</h1>
+</div>
+
+@if (Model.ModelErr!=null)
+{
+    <div class="errText">
+        <p>
+            @Model.ModelErr
+        </p>
+    </div>
+}
+
+
+<div>
+    <form asp-action="Add_View_People" method="post">
+        <label asp-for="AddPerson.FirstName"></label>
+        <input asp-for="AddPerson.FirstName" />
+
+        <label asp-for="AddPerson.LastName"></label>
+        <input asp-for="AddPerson.LastName" />
+
+        <label asp-for="AddPerson.PhoneNumber"></label>
+        <input asp-for="AddPerson.PhoneNumber" />
+
+        <label asp-for="AddPerson.Address"></label>
+        <input asp-for="AddPerson.Address" />
+
+        <input type="submit" value="Create Person" />
+
+    </form>
+</div>
+
+<div>
+    <h1>View People</h1>
+</div>
+
+<div class="divPadding">
+    <form asp-action="Add_View_People" method="post">
+        <input asp-for="Search" />
+
+        <input type="submit" value="Search" />
+
+    </form>
+
+</div>
+
+<div class="divPadding">
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.AllPeople != null)
+            {
+                @foreach (Person person in Model.AllPeople)
+                {
+                    <tr>
+                        <th>@person.FirstName</th>
+                        <th>@person.LastName</th>
+                        <th>@person.PhoneNumber</th>
+                        <th>@person.Address</th>
+                        <th>
+                            <a asp-controller="People" asp-action="DeletePeople" asp-route-id=@person.PersonID class="bodyTxt">Remove</a>
+                        </th>
+                        <th>
+                            <a asp-controller="People" asp-action="EditPeople" asp-route-id=@person.PersonID class="bodyTxt">Edit</a>
+                        </th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
